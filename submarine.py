@@ -28,7 +28,7 @@ class App():
             pyxel.quit()
             
         if self.status == Status.START:
-            if pyxel.btnp(pyxel.KEY_RETURN) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_A):
+            if pyxel.btnp(pyxel.KEY_RETURN) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_B):
                 self.gamecountdown = FPS*GAMETIME -1
                 self.precountdown = FPS*3
                 self.life = 3
@@ -83,11 +83,11 @@ class App():
                 self.fish[i] = self.update_fish(*v)
 
         elif self.status == Status.ENDING:
-            if pyxel.btnp(pyxel.KEY_RETURN) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_A):
+            if pyxel.btnp(pyxel.KEY_RETURN) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_B):
                 self.status = Status.START
                 
         elif self.status == Status.GAMEOVER:
-            if pyxel.btnp(pyxel.KEY_RETURN) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_A):
+            if pyxel.btnp(pyxel.KEY_RETURN) or pyxel.btnp(pyxel.GAMEPAD1_BUTTON_B):
                 self.status = Status.START
 
     def update_player(self):
@@ -144,9 +144,7 @@ class App():
             kind = pyxel.rndi(0,2)
             is_alive = True
 
-#        y = center_y + pyxel.sin((self.gamecountdown%80)*360/80) * (kind+1)*10
         y = center_y + pyxel.sin(((FPS*GAMETIME -self.gamecountdown)%80)*360/80) * (kind+1)*10
-#        y = center_y + pyxel.sin((pyxel.frame_count%80)*360/80) * (kind+1)*10
         return (x,center_y,y,kind, is_alive)
         
     def draw(self):
@@ -190,10 +188,6 @@ class App():
             # mainの前のカウントダウン3,2,1
             if self.status == Status.PRE_MAIN:
                 pyxel.blt(75,40, 0,  16*(self.precountdown//FPS + 1)-16, 48, 16,16, 6, scale=3.0)  
-#                s = f"{self.precountdown//FPS + 1}"
-#                pyxel.text(65,40, s, 12, self.umplus12)
-#                pyxel.text(64,39, s, 0 ,self.umplus12)
-                
 
         elif self.status == Status.START:
             pyxel.cls(0)
@@ -208,10 +202,6 @@ class App():
         elif self.status == Status.ENDING:
             pyxel.cls(0)
             
-#            s = f"POINT\n\n{self.point:>4} +   100 x {self.life:>1} = {self.point + 100* self.life :>4}"
-#            pyxel.text(30,30, s, 8)
-#            pyxel.text(29,30, s, 10)
-#            pyxel.blt(57,42, 0, 4,37, 10,10, 6)
 
             s = f" POINT\n{self.point:>4} +  100 x {self.life:>1} = {self.point + 100* self.life :>4}"
             pyxel.text(5,30, s, 10,self.umplus10)
@@ -225,9 +215,6 @@ class App():
         elif self.status == Status.GAMEOVER:
             pyxel.cls(0)
 
-#            s = f"POINT {self.point:>4}"
-#            pyxel.text(60,40, s, 8)
-#            pyxel.text(59,40, s, 10)
             s = f" POINT\n{self.point:>4} +  100 x {self.life:>1} = {self.point + 100* self.life :>4}"
             pyxel.text(5,30, s, 10,self.umplus10)
 
